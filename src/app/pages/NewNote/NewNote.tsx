@@ -1,10 +1,8 @@
 import React from 'react';
 import { MarkdownPreview, MarkdownInput } from 'react-marked-markdown';
-// 
 export class NewNote extends React.Component {
     render() {
         return (
-            // <div></div>
             <LiveMarkdownTextarea
                 placeholder="Enter your comment here."
                 ref="commentEditor"
