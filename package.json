@@ -1,0 +1,24 @@
+{
+  "name": "markdown-notes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "electron ./src/electron/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amitch6097/markdown-notes.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amitch6097/markdown-notes/issues"
+  },
+  "homepage": "https://github.com/amitch6097/markdown-notes#readme",
+  "devDependencies": {
+    "electron": "^11.1.1"
+  },
+  "private": true
+}
