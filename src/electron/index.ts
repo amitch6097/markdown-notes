@@ -9,4 +9,6 @@ app.on('ready', () => {
 
   // load a website to display
   window.loadURL(`http://example.com`);
+
+  
 });
