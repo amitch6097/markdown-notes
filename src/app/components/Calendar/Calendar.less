@@ -1,0 +1,19 @@
+.mn-calendar__day-of-week,
+.mn-calendar__date-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  button {
+    position: relative;
+    border: 0;
+    width: 4.5ch;
+    height: 4.5ch;
+    border-radius: 50%;
+    background-color: transparent;
+    color: var(--blue-grey-600);
+  }
+  button:hover, button:focus {
+    outline: none;
+    background-color: var(--blue-grey-050);
+    color: var(--blue-grey-700);
+  }
+}
