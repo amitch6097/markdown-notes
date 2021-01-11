@@ -1,5 +1,13 @@
-export function getCurrentDay() {
-    return new Date().setHours(0, 0, 0, 0);
+export function getCurrentDay(): Date {
+    return new Date(new Date().setHours(0, 0, 0, 0));
+}
+
+/**
+ * @param date the date to be formatted
+ * Returns a string date MONTH/DAY/YEAR => ex. 1/21/20201
+ */
+export function formateDate(date: Date): string {
+    return date.toLocaleDateString();
 }
 
 export function getDayOfTheWeek(year, month, day) {
