@@ -1,0 +1,63 @@
+import React from 'react';
+import { INote } from '../../typings/data';
+import { NoteListItem } from './NoteListItem';
+import './DateNoteList.less';
+import { formateDate } from '../../lib/helpers';
+
+export interface IDateNoteListProps {
+    label: string;
+    dateNotes: Array<{
+        date: number;
+        notes: INote[]; // notes should be ordered by now
+    }>; // dates should be ordered;
+}
+
+export function DateNoteList(props: IDateNoteListProps) {
+    return (
+        <div className="mn-date-note-list">
+            <h4 className="mn-date-note-list__header">{props.label}</h4>
+            <ol className="mn-date-note-list__dates-list">
+                {props.dateNotes.map((dateNote) => {
+                    return (
+                        <li
+                            key={Number(dateNote.date)}
+                            className="mn-date-note-list__dates-list-item"
+                        >
+                            <DateListItem {...dateNote} />
+                        </li>
+                    );
+                })}
+            </ol>
+        </div>
+    );
+}
+
+export interface IDateListItemProps {
+    date: number;
+    notes: INote[]; // notes should be ordered by now
+}
+
+export function DateListItem(props: IDateListItemProps) {
+    return (
+        <div className="mn-date-list-item">
+            <time
+                className="mn-date-list-item__date"
+                dateTime={String(Number(props.date))}
+            >
+                <em>{formateDate(new Date(props.date))}</em>
+            </time>
+            <ol className="mn-date-list-item__notes-list">
+                {props.notes.map((note) => {
+                    return (
+                        <li
+                            key={note.id}
+                            className="mn-date-list-item__notes-list-item"
+                        >
+                            <NoteListItem note={note} />
+                        </li>
+                    );
+                })}
+            </ol>
+        </div>
+    );
+}

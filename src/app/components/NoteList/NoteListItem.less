@@ -1,0 +1,20 @@
+.mn-note-list-item {
+    border-bottom: 1px solid rgb(200, 200, 200);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    cursor: pointer;
+
+    label, .mn-note-list-item__sub-label {
+        margin-bottom: 10px;
+    }
+    
+    .mn-note-list-item__sub-label {
+        display: flex;
+        flex-direction: row;
+        white-space: nowrap;
+        .mn-note-list-item__sub-label-updated-at {
+            margin-right: 10px;
+        }
+    }
+}

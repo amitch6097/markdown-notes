@@ -1,0 +1,30 @@
+.mn-app-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px;
+    background-color: var(--app-bar-color);
+
+    .mn-app-bar__left {
+        display: flex;
+        flex-direction: row;
+        .mn-app-bar__left-title {
+            font-weight: normal;
+            margin-right: 10px;
+        }
+    }
+
+    .mn-app-bar__right {
+        display: flex;
+        flex-direction: row;
+        .mn-app-bar__right-actions {
+            display: flex;
+            flex-direction: row;
+            .mn-app-bar__right-action {
+                margin-left: 10px;
+            }
+        }
+    }
+}

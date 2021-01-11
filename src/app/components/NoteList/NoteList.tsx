@@ -1,43 +1,26 @@
 import React from 'react';
 import { INote } from '../../typings/data';
+import { NoteListItem } from './NoteListItem';
 import './NoteList.less';
 
-export interface INoteList {
+export interface INoteListProps {
     label: string;
-    notes: Record<string, INote>;
+    notes: INote[]; // notes should be ordered by now
 }
 
-export function NoteList(props: INoteList) {
+export function NoteList(props: INoteListProps) {
     return (
-        <div className="note-list">
-            <div className="note-list__header">{props.label}</div>
-            <ol className="note-list__list">
-                {Object.keys(props.notes).map((key) => {
-                    const note = props.notes[key];
+        <div className="mn-note-list">
+            <h4 className="mn-note-list__header">{props.label}</h4>
+            <ol className="mn-note-list__list">
+                {props.notes.map((note) => {
                     return (
-                        <li key={key} className="note-list__list-item">
-                            <NoteListItem note={note} />;
+                        <li key={note.id} className="mn-note-list__list-item">
+                            <NoteListItem note={note} />
                         </li>
                     );
                 })}
             </ol>
-        </div>
-    );
-}
-
-export interface INoteListItem {
-    note: INote;
-}
-
-export function NoteListItem(props: INoteListItem) {
-    return (
-        <div className="note-list-item">
-            <label>{props.note.title} </label>
-            <time dateTime={String(props.note.updatedAt)}>
-                {`Updated last: ${new Date(
-                    props.note.updatedAt
-                ).toLocaleDateString()}`}{' '}
-            </time>
         </div>
     );
 }
