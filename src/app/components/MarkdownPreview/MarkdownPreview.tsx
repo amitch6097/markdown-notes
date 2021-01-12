@@ -9,11 +9,11 @@ interface IMarkdownPreviewProps {
 
 export function MarkdownPreview(props: IMarkdownPreviewProps) {
     return (
-        <div className="mn-markdown-preview">
+        <div className="mn-markdown-preview-wrapper">
             <ReactMarkdownPreview
                 value={props.value}
                 markedOptions={{}}
-                className="mn-note-creator__markdown-preview"
+                className="mn-markdown-preview"
             />
         </div>
     );
