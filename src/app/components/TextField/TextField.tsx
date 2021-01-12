@@ -1,13 +1,13 @@
 import React from 'react';
-import './Button.less';
+import './TextField.less';
 
-export interface IButtonProps {
+export interface ITextFieldProps {
     onChange: (value: string) => void;
     value?: string;
-    placeholder: string;
+    placeholder?: string;
 }
 
-export function TextField(props: IButtonProps) {
+export function TextField(props: ITextFieldProps) {
     return (
         <input
             className="mn-text-field"
