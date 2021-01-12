@@ -23,39 +23,26 @@ export interface ICalendarProps {
     selectedDatetime?: number;
 }
 
-export interface IDayProps {
-    index: number;
-    datetime: number;
-    hasNotes?: boolean;
-    offset?: number;
-}
-
-export function Day(props: IDayProps) {
-    const style = props.offset ? { gridColumn: props.offset } : {};
-    const day = props.index + 1;
-
-    return (
-        <button style={style}>
-            <time dateTime={String(props.datetime)}>{day}</time>
-        </button>
-    );
-}
-
 export function Calendar(props: ICalendarProps) {
     return (
         <div className="mn-calendar">
-            <div className="mn-calendar__month-indicator">
+            <div className="mn-calendar__month">
                 {' '}
                 {monthNames[props.month.month]}{' '}
             </div>
             <div className="mn-calendar__day-of-week">
-                <div>Su</div>
-                <div>Mo</div>
-                <div>Tu</div>
-                <div>We</div>
-                <div>Th</div>
-                <div>Fr</div>
-                <div>Sa</div>
+                {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(
+                    (dayOfTheWeek) => {
+                        return (
+                            <div
+                                key={dayOfTheWeek}
+                                className="mn-calendar__day-of-week-title"
+                            >
+                                {dayOfTheWeek}
+                            </div>
+                        );
+                    }
+                )}
             </div>
             <div className="mn-calendar__date-grid">
                 {new Array(props.month.days).fill(null).map((__, index) => {
@@ -83,5 +70,23 @@ export function Calendar(props: ICalendarProps) {
                 })}
             </div>
         </div>
+    );
+}
+
+export interface IDayProps {
+    index: number;
+    datetime: number;
+    hasNotes?: boolean;
+    offset?: number;
+}
+
+export function Day(props: IDayProps) {
+    const style = props.offset ? { gridColumn: props.offset } : {};
+    const day = props.index + 1;
+
+    return (
+        <button style={style}>
+            <time dateTime={String(props.datetime)}>{day}</time>
+        </button>
     );
 }
