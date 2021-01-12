@@ -7,7 +7,7 @@ import {
 } from '../app/components/NoteList/NoteListItem';
 
 export default {
-    title: 'Components/NoteListItem',
+    title: 'Components/Note List Item',
     component: NoteListItem,
 } as Meta;
 

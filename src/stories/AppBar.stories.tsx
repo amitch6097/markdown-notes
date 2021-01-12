@@ -4,7 +4,7 @@ import React from 'react';
 import { AppBar } from '../app/components/AppBar/AppBar';
 
 export default {
-    title: 'Components/AppBar',
+    title: 'Components/App Bar',
     component: AppBar,
 } as Meta;
 

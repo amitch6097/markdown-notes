@@ -4,7 +4,7 @@ import React from 'react';
 import { DateNoteList } from '../app/components/NoteList/DateNoteList';
 
 export default {
-    title: 'Components/DateNoteList',
+    title: 'Components/Date Note List',
     component: DateNoteList,
 } as Meta;
 
