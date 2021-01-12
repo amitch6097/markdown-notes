@@ -4,8 +4,8 @@ import './MarkdownInput.less';
 import { MarkdownInput as ReactMarkdownInput } from 'react-marked-markdown';
 
 interface IMarkdownPreviewProps {
-    value: string;
-    placeholder: string;
+    value?: string;
+    placeholder?: string;
     onChange: (value: string) => void;
 }
 
