@@ -26,9 +26,13 @@ export interface ICalendarProps {
 export function Calendar(props: ICalendarProps) {
     return (
         <div className="mn-calendar">
-            <div className="mn-calendar__month">
-                {' '}
-                {monthNames[props.month.month]}{' '}
+            <div className="mn-calendar__title">
+                <h4>
+                    {monthNames[props.month.month]}
+                </h4>
+                <h4>
+                    {props.month.year}
+                </h4>
             </div>
             <div className="mn-calendar__day-of-week">
                 {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(
@@ -53,6 +57,7 @@ export function Calendar(props: ICalendarProps) {
                     const selected = props.selectedDatetime === datetime;
                     return (
                         <div
+                        style={offset ? { gridColumn: offset } : {}}
                             className={`mn-calendar__date-grid-day ${
                                 selected
                                     ? 'mn-calendar__date-grid-day--selected'
@@ -81,11 +86,10 @@ export interface IDayProps {
 }
 
 export function Day(props: IDayProps) {
-    const style = props.offset ? { gridColumn: props.offset } : {};
     const day = props.index + 1;
 
     return (
-        <button style={style}>
+        <button>
             <time dateTime={String(props.datetime)}>{day}</time>
         </button>
     );

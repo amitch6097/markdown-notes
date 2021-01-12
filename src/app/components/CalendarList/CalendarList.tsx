@@ -1,8 +1,8 @@
-import { Calendar } from '../../components/Calendar/Calendar';
-
 import React from 'react';
-import { getTwelveMonths } from '../../lib/helpers';
+import { Calendar } from '../../components/Calendar/Calendar';
 import { ICalendarMonth } from '../../typings/types';
+import './CalendarList.less';
+
 
 export interface ICalendarListProps {
     months: ICalendarMonth[];
@@ -10,10 +10,14 @@ export interface ICalendarListProps {
 
 export function CalendarList(props: ICalendarListProps) {
     return (
-        <div className="mn-calendar-list">
+        <ol className="mn-calendar-list">
             {props.months.map((month) => {
-                return <Calendar month={month} />;
+                return (
+                    <li className="mn-calendar-list__item">
+                        <Calendar month={month} />
+                    </li>
+                );
             })}
-        </div>
+        </ol>
     );
 }
