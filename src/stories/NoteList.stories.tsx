@@ -4,7 +4,7 @@ import React from 'react';
 import { NoteList, INoteListProps } from '../app/components/NoteList/NoteList';
 
 export default {
-    title: 'Components/NoteList',
+    title: 'Components/Note List',
     component: NoteList,
 } as Meta;
 
