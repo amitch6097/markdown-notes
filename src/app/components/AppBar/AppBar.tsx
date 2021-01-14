@@ -36,7 +36,7 @@ export function AppBar(props: IAppBarProps) {
                 <ol className="mn-app-bar__right-actions">
                     {props.actions.map((action) => {
                         return (
-                            <li className={`mn-app-bar__right-action`}>
+                            <li key={action.label} className={`mn-app-bar__right-action`}>
                                 <Button type={action.type}>
                                     {action.label}
                                 </Button>

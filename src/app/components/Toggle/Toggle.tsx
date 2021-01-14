@@ -18,11 +18,12 @@ export function Toggle(props: IToggleProps) {
                     onChange={() => props.onChange(!props.value)}
                     {...(props.value ? { checked: true } : {})}
                 />
-                <span className="mn-toggle__slider"></span>
+                <span
+                    className="mn-toggle__slider"
+                    onClick={() => props.onChange(!props.value)}
+                ></span>
             </div>
-
-            {/* @ts-ignore */}
-            <label for={props.id}>{props.label}</label>
+            <label htmlFor={props.id}>{props.label}</label>
         </div>
     );
 }
