@@ -1,6 +1,7 @@
 import { Meta } from '@storybook/react/types-6-0';
 import React from 'react';
 import { Calendar } from '../app/components/Calendar/Calendar';
+import { CalendarSkeleton } from '../app/components/Calendar/CalendarSkeleton';
 
 export default {
     title: 'Components/Calendar',
@@ -31,6 +32,14 @@ export const With400WidthContainer = () => {
                     offset: 5,
                 }}
             />
+        </div>
+    );
+};
+
+export const Skeleton = () => {
+    return (
+        <div style={{ width: '400px', height: '400px' }}>
+            <CalendarSkeleton />
         </div>
     );
 };
