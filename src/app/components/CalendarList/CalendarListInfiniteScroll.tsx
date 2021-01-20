@@ -1,16 +1,22 @@
 import React from 'react';
-import { getTwelveMonthsPrevious, getTwelveMonthsNext, getCalendarMonth } from '../../lib/helpers';
+import './CalendarListInfiniteScroll.less';
+import {
+    getTwelveMonthsPrevious,
+    getTwelveMonthsNext,
+    getCalendarMonth,
+} from '../../lib/helpers';
 import { ICalendarMonth } from '../../typings/types';
 import { CalendarSkeleton } from '../Calendar/CalendarSkeleton';
 import { CalendarList, scrollToMonth } from './CalendarList';
 
 export interface ICalendarListInfiniteScrollProps {
-    startDate: Date;
+    notes: Record<string, any>;
+    onClickDay: (datetime: number) => void;
+    selectedDatetime?: number;
 }
 
 export interface ICalendarListInfiniteScrollState {
     months: ICalendarMonth[];
-    selectedMonth: ICalendarMonth;
 }
 
 export class CalendarListInfiniteScroll extends React.Component<
@@ -26,12 +32,14 @@ export class CalendarListInfiniteScroll extends React.Component<
             rootMargin: '0px',
             threshold: 0,
         });
-        
-        const months = [...getTwelveMonthsNext(Number(this.props.startDate)), ...getTwelveMonthsPrevious(Number(this.props.startDate))]
+
+        const months = [
+            ...getTwelveMonthsNext(Number(this.props.selectedDatetime)),
+            ...getTwelveMonthsPrevious(Number(this.props.selectedDatetime)),
+        ];
         this.state = {
             months,
-            selectedMonth: getCalendarMonth(this.props.startDate)
-        }
+        };
     }
 
     componentDidMount() {
@@ -49,18 +57,27 @@ export class CalendarListInfiniteScroll extends React.Component<
     onLoadPrevious = () => {
         const lastMonth = this.state.months[this.state.months.length - 1];
         const lastMonthDate = new Date(lastMonth.year, lastMonth.month);
-        const oneMonthBeforeLastMonthDate = new Date(lastMonthDate.setMonth(lastMonthDate.getMonth() - 1));
-        const nextTwelveMonths = getTwelveMonthsPrevious(Number(oneMonthBeforeLastMonthDate));
+        const oneMonthBeforeLastMonthDate = new Date(
+            lastMonthDate.setMonth(lastMonthDate.getMonth() - 1)
+        );
+        const nextTwelveMonths = getTwelveMonthsPrevious(
+            Number(oneMonthBeforeLastMonthDate)
+        );
         const nextMonths = [...this.state.months, ...nextTwelveMonths];
         this.setState({
-            months: nextMonths
-        })
+            months: nextMonths,
+        });
     };
 
     render() {
         return (
             <div className="mn-calendar-list-infinite-scroll">
-                <CalendarList months={this.state.months} selectedMonth={this.state.selectedMonth} />
+                <CalendarList
+                    onClickDay={this.props.onClickDay}
+                    notes={this.props.notes}
+                    months={this.state.months}
+                    selectedDatetime={this.props.selectedDatetime}
+                />
                 <div ref={this.ref}>
                     <ul className="mn-calendar-list-infinite-scroll__skeleton-list">
                         <li>

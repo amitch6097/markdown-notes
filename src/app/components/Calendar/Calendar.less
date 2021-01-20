@@ -24,12 +24,33 @@
         height: 4.5ch;
         border-radius: 50%;
         background-color: transparent;
-        color: var(--blue-grey-600);
+        color: black;
+      }
+      .mn-calendar__date-grid-day--selected {
+          button {
+            outline: none;
+            background-color: var(--primary-color);
+            color: white; 
+          }
       }
       button:hover, button:focus {
         outline: none;
-        background-color: var(--blue-grey-050);
-        color: var(--blue-grey-700);
+        background-color: var(--primary-color);
+        color: white;
       }
+    }
+
+    .mn-calendar-day  {
+        &.mn-calendar-day--has-note {
+            &::after {
+                content: '';
+                height: 7px;
+                width: 7px;
+                background-color: orange;
+                border-radius: 50%;
+                display: block;
+                margin: auto;
+            }
+        }
     }
 }

@@ -5,11 +5,12 @@ import './NoteListItem.less';
 
 export interface INoteListItemProps {
     note: INote;
+    onClick: (note: INote) => void;
 }
 
 export function NoteListItem(props: INoteListItemProps) {
     return (
-        <div className="mn-note-list-item">
+        <button onClick={() => props.onClick(props.note)} className="mn-note-list-item">
             <label className="mn-bold">{props.note.title} </label>
             <div className="mn-note-list-item__sub-label">
                 <time className="mn-note-list-item__sub-label-updated-at" dateTime={String(props.note.updatedAt)}>
@@ -21,6 +22,6 @@ export function NoteListItem(props: INoteListItemProps) {
                     <em>{props.note.body}</em>
                 </p>
             </div>
-        </div>
+        </button>
     );
 }

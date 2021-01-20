@@ -4,11 +4,12 @@ import './Button.less';
 export interface IButtonProps {
     children: any;
     type: 'primary' | 'secondary';
+    onClick?: () => void;
 }
 
 export function Button(props: IButtonProps) {
     return (
-        <button className={`mn-button mn-button--${props.type}`}>
+        <button onClick={props.onClick} className={`mn-button mn-button--${props.type}`}>
             {props.children}
         </button>
     );
