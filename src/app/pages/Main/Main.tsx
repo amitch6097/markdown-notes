@@ -10,15 +10,32 @@ import './Main.less';
 
 export interface IMainProps {
     globalNotes: INote[]; // notes should be ordered by now
-    dateNotes: Array<{
-        date: number;
-        notes: INote[]; // notes should be ordered by now
-    }>; // dates should be ordered;
+    dateNotes: Record<
+        string,
+        {
+            date: number;
+            notes: INote[]; // notes should be ordered by now
+        }
+    >; // dates should be ordered;
 }
 
-export interface IMainState {}
+export interface IMainState {
+    selectedDatetime: number;
+    selectedNote: undefined;
+}
 
 export class Main extends React.Component<IMainProps, IMainState> {
+    state: IMainState = {
+        selectedDatetime: Number(getCurrentDay()),
+        selectedNote: undefined
+    };
+
+    handleClickDay = (selectedDatetime: number) => {
+        this.setState({
+            selectedDatetime,
+        });
+    };
+
     render() {
         return (
             <div className="mn-main">
@@ -30,12 +47,21 @@ export class Main extends React.Component<IMainProps, IMainState> {
                 </div>
                 <div className="mn-main__date-notes">
                     <DateNoteList
-                        dateNotes={this.props.dateNotes}
+                        dateNotes={
+                            this.props.dateNotes
+                                ? Object.values(this.props.dateNotes)
+                                : ({} as any)
+                        }
+                        
                         label="Notes"
                     />
                 </div>
                 <div className="mn-main__date-calendar">
-                    <CalendarListInfiniteScroll startDate={getCurrentDay()} />
+                    <CalendarListInfiniteScroll
+                        selectedDatetime={this.state.selectedDatetime}
+                        onClickDay={this.handleClickDay}
+                        notes={this.props.dateNotes}
+                    />
                 </div>
             </div>
         );
