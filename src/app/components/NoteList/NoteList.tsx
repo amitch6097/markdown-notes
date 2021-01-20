@@ -6,6 +6,8 @@ import './NoteList.less';
 export interface INoteListProps {
     label: string;
     notes: INote[]; // notes should be ordered by now
+    onClickNote: (note: INote) => void;
+
 }
 
 export function NoteList(props: INoteListProps) {
@@ -16,7 +18,7 @@ export function NoteList(props: INoteListProps) {
                 {props.notes.map((note) => {
                     return (
                         <li key={note.id} className="mn-note-list__list-item">
-                            <NoteListItem note={note} />
+                            <NoteListItem onClick={props.onClickNote}  note={note} />
                         </li>
                     );
                 })}

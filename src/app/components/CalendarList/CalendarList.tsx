@@ -39,6 +39,7 @@ export function CalendarList(props: ICalendarListProps) {
             {props.months.map((month) => {
                 return (
                     <li
+                        key={`${month.year}-${month.month}`}
                         id={getCalendarMonthId(month)}
                         className="mn-calendar-list__item"
                     >

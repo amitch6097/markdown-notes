@@ -10,6 +10,7 @@ export interface IDateNoteListProps {
         date: number;
         notes: INote[]; // notes should be ordered by now
     }>; // dates should be ordered;
+    onClickNote: (note: INote) => void;
 }
 
 export function DateNoteList(props: IDateNoteListProps) {
@@ -23,7 +24,7 @@ export function DateNoteList(props: IDateNoteListProps) {
                             key={Number(dateNote.date)}
                             className="mn-date-note-list__dates-list-item"
                         >
-                            <DateListItem {...dateNote} />
+                            <DateListItem onClick={props.onClickNote} {...dateNote} />
                         </li>
                     );
                 })}
@@ -35,6 +36,7 @@ export function DateNoteList(props: IDateNoteListProps) {
 export interface IDateListItemProps {
     date: number;
     notes: INote[]; // notes should be ordered by now
+    onClick: (note: INote) => void;
 }
 
 export function DateListItem(props: IDateListItemProps) {
@@ -53,7 +55,7 @@ export function DateListItem(props: IDateListItemProps) {
                             key={note.id}
                             className="mn-date-list-item__notes-list-item"
                         >
-                            <NoteListItem note={note} />
+                            <NoteListItem onClick={props.onClick} note={note} />
                         </li>
                     );
                 })}

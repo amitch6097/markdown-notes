@@ -6,10 +6,13 @@
     height: 100%;
     overflow: hidden;
 
-    .mn-main__global-notes, .mn-main__date-notes, .mn-main__date-calendar {
+    .mn-main__global-notes, .mn-main__date-notes {
         overflow-y: auto;
         overflow-x: hidden;
         flex: 1;
+        background: var(--background-color);
+        z-index: 1;
+
     }
 
     .mn-main__global-notes {
@@ -18,7 +21,34 @@
     .mn-main__date-notes {
 
     }
-    .mn-main__date-calendar {
 
+    .mn-main__right {
+        position: relative;
+        flex: 1;
+
+        .mn-main__right-container {
+            position: absolute;
+            height: 100%;
+            width: 200%;
+            display: flex;
+            flex-direction: row;
+            transform: translate(0%);
+            transition: transform 0.2s linear;
+
+            &.mn-main__right-container--selected-note {
+                transform: translate(-50%);
+            }
+
+            .mn-main__date-calendar {
+                width: 50%;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+            .mn-main__note-preview {
+                width: 50%;
+                max-height: 100%;
+                overflow: hidden;
+            }
+        }
     }
 }

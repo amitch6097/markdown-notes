@@ -4,6 +4,23 @@
     flex-direction: column;
     overflow: hidden;
     cursor: pointer;
+    background: transparent;
+    border: none;
+    
+    padding-top: 10px;
+    margin-left: 10px;
+    max-width: calc(100% - 10px);
+
+    &:hover {
+        background-color: rgba(0,0,0,0.02);
+    }
+
+    &:active, &:focus {
+        border: none;
+        background-color: var(--primary-color);
+        color: white;
+        outline: none;
+    }
 
     label, .mn-note-list-item__sub-label {
         margin-bottom: 10px;
@@ -13,6 +30,7 @@
         display: flex;
         flex-direction: row;
         white-space: nowrap;
+        max-width: inherit;
         .mn-note-list-item__sub-label-updated-at {
             margin-right: 10px;
         }
