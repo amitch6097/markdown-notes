@@ -11,6 +11,7 @@ export default {
 export const Primary = () => {
     return (
         <Calendar
+            onClickDay={console.log}
             month={{
                 year: 2021,
                 month: 0,
@@ -25,6 +26,8 @@ export const With400WidthContainer = () => {
     return (
         <div style={{ width: '400px', border: '1px solid rgb(150, 150, 150)' }}>
             <Calendar
+                onClickDay={console.log}
+                notes={[]}
                 month={{
                     year: 2021,
                     month: 0,

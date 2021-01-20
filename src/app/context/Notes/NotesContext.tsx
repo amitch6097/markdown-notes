@@ -3,38 +3,28 @@ import { INote } from '../../typings/data';
 
 export interface INotesContextState {
     globalNotes: Record<string, INote>;
-    notes: Record<string, INote>;
+    notes: Record<
+        string,
+        {
+            date: number;
+            notes: INote[]; // notes should be ordered by now
+        }
+    >;
 }
 
 export interface INotesContextActions {
-    add: (note: {
-        title: string;
-        body: string;
-        isGlobal: boolean;
+    onSaveNote: ({ isGlobal, body, title }: {
+        isGlobal: boolean, 
+        body: string, 
+        title: string
     }) => void;
 }
 
+export type TNotesContext = INotesContextState & INotesContextActions;
+const initialState: TNotesContext = {
+    globalNotes: {},
+    notes: {},
+    onSaveNote: () => {}
+};
 
-
-export interface INotesContext {
-    state: INotesContextState;
-    actions: {
-        add: (note: {
-            title: string;
-            body: string;
-            isGlobal: boolean;
-        }) => void;
-    }
-}
-
-const initialState: INotesContext = {
-    state: {
-        globalNotes: {},
-        notes: {},
-    },
-    actions: {
-        add: () => {}
-    }
-}
-
-export const NotesContext = React.createContext(initialState)
+export const NotesContext = React.createContext(initialState);

@@ -21,7 +21,7 @@ const monthNames = [
 export interface ICalendarProps {
     month: ICalendarMonth;
     selectedDatetime?: number;
-    notes: Record<string, any>;
+    notes?: Record<string, any>;
     onClickDay: (datetime: number) => void;
 }
 

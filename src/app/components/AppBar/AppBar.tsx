@@ -7,6 +7,7 @@ import { Button } from '../Button/Button';
 export interface IAction {
     label: string;
     type: 'primary' | 'secondary';
+    callback: () => void;
 }
 
 export interface IAppBarProps {
@@ -37,7 +38,7 @@ export function AppBar(props: IAppBarProps) {
                     {props.actions.map((action) => {
                         return (
                             <li key={action.label} className={`mn-app-bar__right-action`}>
-                                <Button type={action.type}>
+                                <Button onClick={action.callback} type={action.type}>
                                     {action.label}
                                 </Button>
                             </li>

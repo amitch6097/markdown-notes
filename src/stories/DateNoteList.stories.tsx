@@ -12,6 +12,7 @@ export const Primary = () => {
     return (
         <DateNoteList
             label="Notes"
+            onClickNote={console.log}
             dateNotes={[
                 {
                     date: 1610331722661,
@@ -104,3 +105,13 @@ export const Primary = () => {
         />
     );
 };
+
+export const Empty = () => {
+    return (
+        <DateNoteList
+            label="Notes"
+            onClickNote={console.log}
+        />
+    );
+};
+

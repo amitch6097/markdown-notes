@@ -6,7 +6,7 @@ import { formateDate } from '../../lib/helpers';
 
 export interface IDateNoteListProps {
     label: string;
-    dateNotes: Array<{
+    dateNotes?: Array<{
         date: number;
         notes: INote[]; // notes should be ordered by now
     }>; // dates should be ordered;
@@ -18,16 +18,25 @@ export function DateNoteList(props: IDateNoteListProps) {
         <div className="mn-date-note-list">
             <h4 className="mn-date-note-list__header">{props.label}</h4>
             <ol className="mn-date-note-list__dates-list">
-                {props.dateNotes.map((dateNote) => {
-                    return (
-                        <li
-                            key={Number(dateNote.date)}
-                            className="mn-date-note-list__dates-list-item"
-                        >
-                            <DateListItem onClick={props.onClickNote} {...dateNote} />
-                        </li>
-                    );
-                })}
+                {props.dateNotes?.length ? (
+                    props.dateNotes.map((dateNote) => {
+                        return (
+                            <li
+                                key={Number(dateNote.date)}
+                                className="mn-date-note-list__dates-list-item"
+                            >
+                                <DateListItem
+                                    onClick={props.onClickNote}
+                                    {...dateNote}
+                                />
+                            </li>
+                        );
+                    })
+                ) : (
+                    <h4>
+                        <em>No Notes Yet</em>
+                    </h4>
+                )}
             </ol>
         </div>
     );

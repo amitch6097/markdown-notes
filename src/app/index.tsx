@@ -1,29 +1,20 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { AppBar } from './components/AppBar/AppBar';
+import { App } from './App';
+import { NoteCreatorContext } from './context/NoteCreator/NoteCreatorContext';
+import { NoteCreatorContextProvider } from './context/NoteCreator/NoteCreatorContextProvider';
 import { NotesContextProvider } from './context/Notes/NotesContextProvider';
 import './index.less';
-import { Find } from './pages/Find/Find';
 var remote = window.require('electron').remote;
 
 const app = document.getElementById('app');
 
-const Emphasis: React.FunctionComponent = (props) => <em>{props.children}</em>;
-
-const App = () => (
-    <NotesContextProvider>
-        <div>
-            <AppBar
-                actions={[
-                    {
-                        label: 'Create Note',
-                        type: 'primary',
-                    },
-                ]}
-            />
-            <Find />
-        </div>
-    </NotesContextProvider>
+const Index = () => (
+    <NoteCreatorContextProvider>
+        <NotesContextProvider>
+            <App />
+        </NotesContextProvider>
+    </NoteCreatorContextProvider>
 );
 
-ReactDOM.render(<App />, app);
+ReactDOM.render(<Index />, app);

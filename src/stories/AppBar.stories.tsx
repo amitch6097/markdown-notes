@@ -15,6 +15,7 @@ export const Primary = () => {
                 {
                     label: 'Create Note',
                     type: 'primary',
+                    callback: console.log
                 },
             ]}
         />
@@ -28,10 +29,12 @@ export const CreatingNote = () => {
                 {
                     label: 'Cancel',
                     type: 'secondary',
+                    callback: console.log
                 },
                 {
                     label: 'Save Note',
                     type: 'primary',
+                    callback: console.log
                 },
             ]}
         />
