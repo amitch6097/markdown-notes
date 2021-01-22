@@ -14,6 +14,7 @@ export default {
 export const Primary = () => {
     return (
         <NoteListItem
+            onClick={console.log}
             note={{
                 id: '1',
                 title: 'My First Note',

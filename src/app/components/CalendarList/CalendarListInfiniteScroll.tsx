@@ -10,7 +10,7 @@ import { CalendarSkeleton } from '../Calendar/CalendarSkeleton';
 import { CalendarList, scrollToMonth } from './CalendarList';
 
 export interface ICalendarListInfiniteScrollProps {
-    notes: Record<string, any>;
+    notes?: Record<string, any>;
     onClickDay: (datetime: number) => void;
     selectedDatetime?: number;
 }

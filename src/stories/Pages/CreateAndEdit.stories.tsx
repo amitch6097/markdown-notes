@@ -1,6 +1,7 @@
 // also exported from '@storybook/react' if you can deal with breaking changes in 6.1
 import { Meta } from '@storybook/react/types-6-0';
 import React from 'react';
+import { NoteCreatorContextProvider } from '../../app/context/NoteCreator/NoteCreatorContextProvider';
 import { CreateAndEdit } from '../../app/pages/CreateAndEdit/CreateAndEdit';
 
 export default {
@@ -11,7 +12,9 @@ export default {
 export const Primary = () => {
     return (
         <div style={{ width: window.innerWidth, height: window.innerHeight }}>
-            <CreateAndEdit onCancel={console.log} onSave={console.log} />
+            <NoteCreatorContextProvider>
+                <CreateAndEdit />
+            </NoteCreatorContextProvider>
         </div>
     );
 };

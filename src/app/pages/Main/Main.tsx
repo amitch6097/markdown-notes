@@ -18,6 +18,7 @@ export interface IMainProps {
             notes: INote[]; // notes should be ordered by now
         }
     >; // dates should be ordered;
+    onClickEditNote: (note: INote) => void;
 }
 
 export interface IMainState {

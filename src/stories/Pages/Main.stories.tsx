@@ -12,6 +12,7 @@ export const Primary = () => {
     return (
         <div style={{ height: '800px' }}>
             <Main
+                onClickEditNote={console.log}
                 dateNotes={{
                     1610254800000: {
                         date: 1610254800000,

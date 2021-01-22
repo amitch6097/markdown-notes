@@ -9,4 +9,5 @@ export interface INote {
     body: string;
     createdAt: number;
     updatedAt: number;
+    isGlobal?: boolean;
 }

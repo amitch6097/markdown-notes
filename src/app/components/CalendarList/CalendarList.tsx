@@ -7,7 +7,7 @@ import './CalendarList.less';
 export interface ICalendarListProps {
     months: ICalendarMonth[];
     selectedDatetime?: number;
-    notes: Record<string, any>;
+    notes?: Record<string, any>;
     onClickDay: (datetime: number) => void;
 }
 

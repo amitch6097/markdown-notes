@@ -11,6 +11,7 @@ export default {
 export const Primary = () => {
     return (
         <NoteList
+            onClickNote={console.log}
             label="Global Notes"
             notes={[
                 {
@@ -38,6 +39,15 @@ export const Primary = () => {
                     updatedAt: 1610331722661,
                 },
             ]}
+        />
+    );
+};
+
+export const Empty = () => {
+    return (
+        <NoteList
+            onClickNote={console.log}
+            label="Global Notes"
         />
     );
 };

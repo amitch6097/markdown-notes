@@ -1,0 +1,39 @@
+.mn-body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    .mn-body__app-bar {
+        z-index: 1000;
+        flex: 1;
+    }
+    .mn-body__content {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        .mn-body__content-container {
+            
+            height: 200%;
+            position: absolute;
+            width: 100%;
+            overflow: hidden;
+            transform: translate(0px, 0%);
+            transition: transform 0.3s linear;
+            &.mn-body__content-container--create-and-edit {
+                transform: translate(0px, -50%);
+            }
+
+        }
+        .mn-body__content-main {
+            height: 50%;
+        }
+
+        .mn-body__content-create-and-edit {
+            height: 50%;
+        }
+    }
+}
