@@ -1,42 +1,63 @@
 import { IFile, INote } from '../typings/data';
-import { NoteDocumentStore } from './DocumentStore';
+import { DocumentStore, SerialisedDocumentStore } from './DocumentStore';
 import { generateGUID } from './helpers';
-
-var fs = require('fs');
-var path = require('path');
-var elasticlunr = require('elasticlunr');
-
-var globalNoteDocumentStore = new NoteDocumentStore(
-    elasticlunr(function () {
-        this.setRef('id');
-        this.addField('title');
-        this.addField('body');
-        this.addField('createdAt');
-    })
-);
-
-var noteDocumentStore = new NoteDocumentStore(
-    elasticlunr(function () {
-        this.setRef('id');
-        this.addField('title');
-        this.addField('body');
-        this.addField('createdAt');
-    })
-);
-
-//@ts-ignore
-window.noteDocumentStore = noteDocumentStore
-//@ts-ignore
-window.elasticlunr = elasticlunr;
-const FILE = path.join(__dirname, '../../file.example.json');
-
+export function createNoteDocumentStore() {
+    return new DocumentStore<INote>(['title', 'body', 'isGlobal']);
+}
 export interface INotesManager {
-    globalNotes: Record<string, INote>;
-    notes: Record<string, INote>;
+    globalNotes: DocumentStore<INote>;
+    notes: DocumentStore<INote>;
 }
 
 export class NotesManager {
     constructor(readonly data: INotesManager) {}
+
+    get state(): {
+        globalNotes: Record<string, INote>;
+        dateNotes: Record<
+            string,
+            {
+                date: number;
+                notes: INote[]; // notes should be ordered by now
+            }
+        >;
+    } {
+        const notes = this.data.notes.data;
+        const dateNotes = notes
+            ? Object.keys(notes).reduce((temp, key) => {
+                  const note = notes[key];
+                  temp[String(note.updatedAt)] = temp[note.updatedAt] || {
+                      date: note.updatedAt,
+                      notes: [],
+                  };
+                  temp[String(note.updatedAt)].notes.push(note);
+                  return temp;
+              }, {})
+            : {};
+        return {
+            globalNotes: this.data.globalNotes.data,
+            dateNotes,
+        };
+    }
+
+    async load({
+        notes,
+        globalNotes,
+    }: {
+        notes: SerialisedDocumentStore<INote>;
+        globalNotes: SerialisedDocumentStore<INote>;
+    }) {
+        try {
+            await this.data.globalNotes.load(globalNotes);
+            await this.data.notes.load(notes);
+            return new NotesManager({
+                ...this.data,
+            });
+        } catch (err) {
+            console.warn(err);
+            return this;
+        }
+    }
 
     add({
         title,
@@ -48,70 +69,22 @@ export class NotesManager {
         isGlobal: boolean;
     }) {
         if (isGlobal) {
-            globalNoteDocumentStore.addDoc({ title, body });
+            this.data.globalNotes.addDoc({ title, body, isGlobal });
             return new NotesManager({
                 ...this.data,
-                globalNotes: globalNoteDocumentStore.data,
             });
         } else {
-            noteDocumentStore.addDoc({ title, body });
+            this.data.notes.addDoc({ title, body, isGlobal });
             return new NotesManager({
                 ...this.data,
-                notes: noteDocumentStore.data,
             });
         }
     }
 
-    delete(id: string) {
-        if (globalNoteDocumentStore.hasDoc(id)) {
-            globalNoteDocumentStore.removeDoc(id);
-            return new NotesManager({
-                ...this.data,
-                globalNotes: globalNoteDocumentStore.data,
-            });
-        } else if (noteDocumentStore.hasDoc(id)) {
-            noteDocumentStore.removeDoc(id);
-            return new NotesManager({
-                ...this.data,
-                notes: noteDocumentStore.data,
-            });
-        }
-    }
-
-    load() {
-        try {
-            const text: string = fs.readFileSync(FILE, 'utf8');
-            const { notes, globalNotes } = JSON.parse(text);
-            globalNoteDocumentStore.load(globalNotes);
-            noteDocumentStore.load(notes);
-            return new NotesManager({
-                globalNotes: globalNoteDocumentStore.data,
-                notes: noteDocumentStore.data,
-            });
-        } catch (err) {
-            console.warn(err);
-            return new NotesManager({
-                globalNotes: {},
-                notes: {},
-            });
-        }
-    }
-
-    async save(): Promise<boolean> {
-        const error = await new Promise((resolve) =>
-            fs.writeFile(
-                FILE,
-                JSON.stringify({
-                    notes: noteDocumentStore.toJSON(),
-                    globalNotes: globalNoteDocumentStore.toJSON(),
-                }),
-                resolve
-            )
-        );
-        if (error) {
-            console.warn('could not save!');
-            return false;
-        }
-        return true;
+    toJSON() {
+        return {
+            globalNotes: this.data.globalNotes.toJSON(),
+            notes: this.data.notes.toJSON(),
+        };
     }
 }

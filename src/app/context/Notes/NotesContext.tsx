@@ -3,7 +3,7 @@ import { INote } from '../../typings/data';
 
 export interface INotesContextState {
     globalNotes: Record<string, INote>;
-    notes: Record<
+    dateNotes: Record<
         string,
         {
             date: number;
@@ -23,7 +23,7 @@ export interface INotesContextActions {
 export type TNotesContext = INotesContextState & INotesContextActions;
 const initialState: TNotesContext = {
     globalNotes: {},
-    notes: {},
+    dateNotes: {},
     onSaveNote: () => {}
 };
 

@@ -5,13 +5,15 @@ import { NoteCreatorContext } from './context/NoteCreator/NoteCreatorContext';
 import { NoteCreatorContextProvider } from './context/NoteCreator/NoteCreatorContextProvider';
 import { NotesContextProvider } from './context/Notes/NotesContextProvider';
 import './index.less';
-var remote = window.require('electron').remote;
-
+const remote = window.require('electron').remote;
+const path = require('path');
 const app = document.getElementById('app');
+
+const defaultFilePath = path.resolve(__dirname, '../markdown-notes.json');
 
 const Index = () => (
     <NoteCreatorContextProvider>
-        <NotesContextProvider>
+        <NotesContextProvider defaultFilePath={defaultFilePath}>
             <App />
         </NotesContextProvider>
     </NoteCreatorContextProvider>

@@ -102,7 +102,7 @@ export class App extends React.Component<{}, IAppState> {
     }
 
     static MainPage({ onChangePage }) {
-        const { globalNotes, notes } = React.useContext(NotesContext);
+        const { globalNotes, dateNotes } = React.useContext(NotesContext);
         const { onEditNote } = React.useContext(NoteCreatorContext);
 
         function handleClickEditNote(note: INote) {
@@ -113,7 +113,7 @@ export class App extends React.Component<{}, IAppState> {
         return (
             <Main
                 globalNotes={Object.values(globalNotes)}
-                dateNotes={notes}
+                dateNotes={dateNotes}
                 onClickEditNote={handleClickEditNote}
             />
         );

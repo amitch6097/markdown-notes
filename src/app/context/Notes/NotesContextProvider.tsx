@@ -1,69 +1,58 @@
 import React from 'react';
-import { NotesManager } from '../../lib/NotesManager';
+import { NotesManager, createNoteDocumentStore } from '../../lib/NotesManager';
+import { FileManager } from '../../lib/FileManager';
+
 import {
     NotesContext,
     TNotesContext
 } from './NotesContext';
 
 export interface INotesContextProviderProps {
-
+    defaultFilePath: string;
 }
 
 export class NotesContextProvider
     extends React.Component<INotesContextProviderProps, TNotesContext> {
-    manager: NotesManager;
+    
+    private manager: NotesManager;
 
     constructor(props) {
         super(props);
-        // this.manager = new NotesManager({
-        //     notes: {},
-        //     globalNotes: {},
-        // });
+        this.manager = new NotesManager({
+            notes: createNoteDocumentStore(),
+            globalNotes: createNoteDocumentStore()
+        });
 
         this.state = {
-            notes: {},
-            globalNotes: {},
+            ...this.manager.state,
             onSaveNote: this.handleSaveNote
         };
     }
 
-    handleSaveNote = ({ isGlobal, body, title }: {
+    handleSaveNote = async (note:  {
         isGlobal: boolean, 
         body: string, 
         title: string
     }) => {
-
+        this.manager = await this.manager.add(note);
+        this.setState(this.manager.state);
+        const json = this.manager.toJSON();
+        const content = JSON.stringify(json);
+        await FileManager.save(this.props.defaultFilePath, content);
     }
 
-    // componentDidMount() {
-    //     this.manager = this.manager.load();
-    //     this.setState({
-    //         ...this.manager.data,
-    //     });
-    // }
+    handleLoadDefaultFilePath = async () => {
+        const content = await FileManager.load(this.props.defaultFilePath);
+        if(content) {
+            const json = JSON.parse(content);
+            this.manager = await this.manager.load(json);
+            this.setState(this.manager.state);
+        }
+    }
 
-    // add = (note: {
-    //     title: string;
-    //     body: string;
-    //     isGlobal: boolean;
-    // }) => {
-    //     this.manager = this.manager.add(note);
-    //     this.setState({
-    //         ...this.manager.data,
-    //     });
-    //     this.save();
-    // }
-
-    // delete = (id: string) =>  {
-    //     this.manager = this.manager.delete(id);
-    //     this.setState({
-    //         ...this.manager.data,
-    //     });
-    // }
-
-    // save = async () => {
-    //      await this.manager.save();
-    // }
+    componentDidMount() {
+        this.handleLoadDefaultFilePath();
+    }
 
     render() {
         return (
