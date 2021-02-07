@@ -2,6 +2,7 @@ import React from 'react';
 import { INote } from '../../typings/data';
 
 export interface INoteCreatorContextState {
+    id?: string;
     body?: string;
     title?: string;
     isGlobal?: boolean;
@@ -19,6 +20,7 @@ export interface INoteCreatorContextActions {
 export type TNoteCreatorContext = INoteCreatorContextState & INoteCreatorContextActions;
 
 export const initialState: TNoteCreatorContext = {
+    id: undefined,
     body: '',
     title: 'New Note',
     isGlobal: false,

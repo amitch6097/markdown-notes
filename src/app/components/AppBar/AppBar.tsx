@@ -5,13 +5,14 @@ import { formateDate, getCurrentDay } from '../../lib/helpers';
 import { Button } from '../Button/Button';
 
 export interface IAction {
+    key: string;
     label: string;
     type: 'primary' | 'secondary';
-    callback: () => void;
 }
 
 export interface IAppBarProps {
     actions: IAction[];
+    onClickAction: (key: string) => void;
 }
 
 export function AppBar(props: IAppBarProps) {
@@ -25,10 +26,7 @@ export function AppBar(props: IAppBarProps) {
                     <em className="mn-bold">Markdown</em> Notes
                 </h3>
                 <h3>
-                    <time
-                        className="mn-bold"
-                        dateTime={String(Number(now))}
-                    >
+                    <time className="mn-bold" dateTime={String(Number(now))}>
                         {nowString}
                     </time>
                 </h3>
@@ -37,8 +35,14 @@ export function AppBar(props: IAppBarProps) {
                 <ol className="mn-app-bar__right-actions">
                     {props.actions.map((action) => {
                         return (
-                            <li key={action.label} className={`mn-app-bar__right-action`}>
-                                <Button onClick={action.callback} type={action.type}>
+                            <li
+                                key={action.label}
+                                className={`mn-app-bar__right-action`}
+                            >
+                                <Button
+                                    onClick={() => props.onClickAction(action.key)}
+                                    type={action.type}
+                                >
                                     {action.label}
                                 </Button>
                             </li>

@@ -11,11 +11,12 @@ export default {
 export const Primary = () => {
     return (
         <AppBar
+            onClickAction={console.log}
             actions={[
                 {
+                    key: '1',
                     label: 'Create Note',
                     type: 'primary',
-                    callback: console.log
                 },
             ]}
         />
@@ -25,16 +26,17 @@ export const Primary = () => {
 export const CreatingNote = () => {
     return (
         <AppBar
+            onClickAction={console.log}
             actions={[
                 {
+                    key: '1',
                     label: 'Cancel',
                     type: 'secondary',
-                    callback: console.log
                 },
                 {
+                    key: '2',
                     label: 'Save Note',
                     type: 'primary',
-                    callback: console.log
                 },
             ]}
         />

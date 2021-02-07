@@ -16,6 +16,12 @@ export interface IAppState {
     page: Pages;
 }
 
+export enum AppBarActions {
+    MAIN_CREATE = 'main.create',
+    CREATE_CANCEL = 'create.cancel',
+    CREATE_SAVE = 'create.save'
+}
+
 export class App extends React.Component<{}, IAppState> {
     state = {
         page: Pages.MAIN,
@@ -50,14 +56,37 @@ export class App extends React.Component<{}, IAppState> {
         );
     }
 
+    static AppBarMainActions: IAction[] = [
+        {
+            key: AppBarActions.MAIN_CREATE,
+            label: 'Create Note',
+            type: 'primary',
+        },
+    ]
+
+    static AppBarCreateActions: IAction[] = [
+        {
+            key: AppBarActions.CREATE_CANCEL,
+            label: 'Cancel',
+            type: 'secondary',
+        },
+        {
+            key: AppBarActions.CREATE_SAVE,
+            label: 'Save Note',
+            type: 'primary',
+        },
+    ]
+
+
     static AppBar({ page, onChangePage }) {
         const { onSaveNote } = React.useContext(NotesContext);
-        const { body, title, isGlobal, onResetNote } = React.useContext(
+        const { id, body, title, isGlobal, onResetNote } = React.useContext(
             NoteCreatorContext
         );
 
         function handleSaveNote() {
             onSaveNote({
+                id,
                 body,
                 title,
                 isGlobal,
@@ -71,34 +100,22 @@ export class App extends React.Component<{}, IAppState> {
             onResetNote();
         }
 
-        const actions: IAction[] = React.useMemo(() => {
-            if (page === Pages.MAIN) {
-                return [
-                    {
-                        label: 'Create Note',
-                        type: 'primary',
-                        callback: () => onChangePage(Pages.CREATE_AND_EDIT),
-                    },
-                ];
-            } else if (page === Pages.CREATE_AND_EDIT) {
-                return [
-                    {
-                        label: 'Cancel',
-                        type: 'secondary',
-                        callback: handleCancelNote,
-                    },
-                    {
-                        label: 'Save Note',
-                        type: 'primary',
-                        callback: handleSaveNote,
-                    },
-                ];
-            } else {
-                return [];
+        function onClickAction(key: string) {
+            switch(key) {
+                case AppBarActions.MAIN_CREATE: 
+                    onChangePage(Pages.CREATE_AND_EDIT);
+                    break;
+                case AppBarActions.CREATE_CANCEL: 
+                    handleCancelNote();
+                    break;
+                case AppBarActions.CREATE_SAVE: 
+                    handleSaveNote();
+                    break;
             }
-        }, [page]);
+        }
 
-        return <AppBar actions={actions} />;
+        const actions = page === Pages.MAIN ? App.AppBarMainActions : App.AppBarCreateActions;
+        return <AppBar actions={actions} onClickAction={onClickAction} />;
     }
 
     static MainPage({ onChangePage }) {

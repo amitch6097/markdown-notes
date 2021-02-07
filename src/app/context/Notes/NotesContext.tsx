@@ -13,7 +13,8 @@ export interface INotesContextState {
 }
 
 export interface INotesContextActions {
-    onSaveNote: ({ isGlobal, body, title }: {
+    onSaveNote: ({ id, isGlobal, body, title }: {
+        id?: string;
         isGlobal: boolean, 
         body: string, 
         title: string

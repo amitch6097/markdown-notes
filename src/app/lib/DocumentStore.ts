@@ -80,8 +80,8 @@ export class DocumentStore<T extends IBaseDocument> {
         };
 
         this.index.addDoc({
-            ...data,
             ...documentData,
+            ...data,
         });
         return id;
     }

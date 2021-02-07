@@ -10,6 +10,7 @@ export interface INoteCreatorContextProviderProps {
 }
 
 const initialNote = {
+    id: undefined,
     body: '',
     title: 'New Note',
     isGlobal: false,
@@ -53,6 +54,7 @@ export class NoteCreatorContextProvider
 
     handleEditNote = (note: INote) => {
         this.setState({
+            id: note.id,
             body: note.body,
             title: note.title,
             createdAt: note.createdAt,

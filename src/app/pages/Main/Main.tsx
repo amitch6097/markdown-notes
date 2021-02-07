@@ -45,7 +45,7 @@ export class Main extends React.Component<IMainProps, IMainState> {
     };
 
     handleEditNote = () => {
-
+        this.props.onClickEditNote(this.state.selectedNote);
     };
 
     handleClickNote = (selectedNote: INote) => {
